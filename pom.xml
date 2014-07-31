@@ -71,7 +71,7 @@
         <dependency>
             <groupId>net.virtalab</groupId>
             <artifactId>logger</artifactId>
-            <version>1.1</version>
+            <version>1.2</version>
         </dependency>
         <!-- Unit Testing -->
         <dependency>
