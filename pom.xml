@@ -26,7 +26,7 @@
     <scm>
         <url>https://github.com/virtalab/http-client</url>
         <connection>scm:git:ssh://git@github.com/virtalab/http-client</connection>
-        <developerConnection>scm:git:ssh://git@github.comvirtalab/http-client</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com/virtalab/http-client</developerConnection>
     </scm>
 
     <developers>
