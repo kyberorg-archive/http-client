@@ -13,6 +13,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -111,8 +113,16 @@ public class HttpClient {
             t = new IllegalStateException("Method cannot be NULL");
         }
         if (this.req.url == null) {
-            t = new IllegalStateException("URL cannot be NULL: nowhere no send request");
+            t = new IllegalStateException("URL cannot be NULL: nowhere to send request");
         }
+
+        try{
+            URL url = new URL(this.req.url);
+        }catch (MalformedURLException e){
+            t = new IllegalStateException("Malformed or damaged URL");
+        }
+
+
         if (t != null) {
             Response response = new Response();
             response.failSet(t);
