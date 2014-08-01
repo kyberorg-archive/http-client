@@ -65,7 +65,6 @@ public class Response {
         this.exceptionSlot = exception;
     }
 
-    //TODO override toString and do var_dump
     @Override
     public String toString(){
         String NEWLINE = System.lineSeparator();
@@ -74,10 +73,12 @@ public class Response {
 
         dump.append("StatusCode: ").append(statusCode).append(NEWLINE);
 
-        for (Header header : headers) {
-            dump.append("Header: ")
-                .append(header.getName()).append(":").append(header.getValue())
-                .append(NEWLINE);
+        if(headers!=null) {
+            for (Header header : headers) {
+                dump.append("Header: ")
+                        .append(header.getName()).append(":").append(header.getValue())
+                        .append(NEWLINE);
+            }
         }
 
         if(body!=null)
