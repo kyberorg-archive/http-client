@@ -1,7 +1,9 @@
 package net.virtalab.httpclient;
 
 import net.virtalab.httpclient.internal.RequestFactory;
-import net.virtalab.logger.Logger;
+import net.virtalab.logger.Log;
+import net.virtalab.logger.LogLevel;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,7 +27,8 @@ import java.util.List;
 @SuppressWarnings("UnusedDeclaration")
 public class HttpClient {
 
-    private static Logger log = Logger.getLogger("HTTP");
+    private static final String TAG = "HTTP Client";
+
     public static final String REQUEST = "REQUEST";
     public static final String RESPONSE = "RESPONSE";
     public static final String NEWLINE = System.lineSeparator();
@@ -129,7 +132,7 @@ public class HttpClient {
             return response;
         }
         //log
-        if (Logger.getCurrentLogLevelAsInt() >= Logger.Level.DEBUG.asInt()) {
+        if (Log.getCurrentLogLevelAsInt() >= LogLevel.DEBUG.asInt()) {
             StringBuilder logLine = new StringBuilder();
             logLine.append(REQUEST).append(NEWLINE);
             logLine.append("URL: ").append(this.req.url).append(NEWLINE);
@@ -145,7 +148,7 @@ public class HttpClient {
                 logLine.append(this.req.payload).append(NEWLINE);
             }
 
-            log.debug(logLine.toString());
+            Log.debug(logLine.toString());
         }
 
         //action
@@ -166,7 +169,7 @@ public class HttpClient {
                 HttpEntity entity = new StringEntity(this.req.payload, HTTP.UTF_8);
                 payloadableObject.setEntity(entity);
             } catch (ClassCastException cce) {
-                log.warn("Cannot load payload to request. Method " + this.req.method + " doesn't support payload. Payload ignored.");
+                Log.warn("Cannot load payload to request. Method " + this.req.method + " doesn't support payload. Payload ignored.");
             }
         }
         HttpResponse httpResponse;
@@ -189,14 +192,14 @@ public class HttpClient {
         response.globalSet(httpResponse);
 
         // ... and log
-        if (Logger.getCurrentLogLevelAsInt() >= Logger.Level.DEBUG.asInt()) {
+        if (Log.getCurrentLogLevelAsInt() >= LogLevel.DEBUG.asInt()) {
             StringBuilder logLine = new StringBuilder();
             logLine.append(REQUEST).append(NEWLINE);
             logLine.append("StatusCode: ").append(response.getCode()).append(NEWLINE);
             logLine.append("Body: ").append(NEWLINE);
             logLine.append(response.getBody());
 
-            log.debug(logLine.toString());
+            Log.debug(logLine.toString());
         }
 
         return response;
